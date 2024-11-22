@@ -1,0 +1,1 @@
+Add-DnsServerResourceRecordA -ComputerName "2-SV-DC-TN-01.bfwtn.intern" -Name "2-DR-U103-01" -ZoneName "bfwtn.intern" -IPv4Address "192.168.85.140" -CreatePtr

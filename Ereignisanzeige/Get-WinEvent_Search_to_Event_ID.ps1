@@ -1,0 +1,3 @@
+﻿# Windows Ereignisanzeige - nach EvetID suchen ...
+
+Get-WinEvent -Logname "Directory Service" | WHERE {$_.id -like 2887}

@@ -1,0 +1,1 @@
+Get-Vm -Computername "2-sv-vs-tn-01", "2-sv-vs-tn-02", "2-sv-vs-tn-03", "2-sv-vs-tn-04", "2-sv-vs-tn-05", "2-sv-vs-tn-06", "2-sv-vs-tn-07", "2-sv-vs-tn-08", "2-sv-vs-tn-09"

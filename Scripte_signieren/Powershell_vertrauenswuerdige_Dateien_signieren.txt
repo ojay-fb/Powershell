@@ -1,0 +1,9 @@
+Mittels des Kommandos
+
+Get-ChildItem cert:\CurrentUser\My -codesigning
+
+prüft man dessen Vorhandensein in der PowerShell-Umgebung.
+
+Signieren kann man sein Script dann per
+
+Set-AuthenticodeSignature test.txt @(Get-ChildItem cert:\CurrentUser\My -codesigning)[0]

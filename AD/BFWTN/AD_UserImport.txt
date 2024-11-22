@@ -1,0 +1,3 @@
+﻿ParticipantNumber,Lastname,Firstname,LastnameAdjusted,DateofBirth
+12345,Tölle,Annedore,Toelle,01.01.2022
+
