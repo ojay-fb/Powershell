@@ -1,10 +1,15 @@
 ﻿# Powershell-Datei zum hinzufügen von Benutzern zum AD (BFWTN.Intern)
 # mit Hilfe der Import-Funktion aus einer CSV-Datei
-# erstellt von Oliver Jonas, 20220106, Version 1.0
+# erstellt von Oliver Jonas, 20250123, Version 1.0
+
+# Query of credentials for windows domain user
+
+# $credential = Get-Credential
 
 # globale Variablem erstellen
 
-$NewUserImportDatei = Import-Csv -Path "c:\tmp\AD_UserImport.csv"
+$NewUserImportDatei = Import-Csv -Path "c:\tmp\AD_UserImport.csv" # for Windows Clients
+# $NewUserImportDatei = Import-Csv -Path "/home/ojayfb/Transfer/AD_UserImport.csv" # for Linux Clients
 
 # Schleife zum Anlegen der in der CSV-Datei befindlichen Benutzer
 
@@ -22,13 +27,13 @@ $NewUserDateofBirth = $user.DateofBirth
 $NewUserName = ($user.Lastname+","+" "+$user.Firstname)
 $NewUserDisplayName = ($user.Lastname+","+" "+$user.Firstname)
 $NewUserSAMAccountName = ($user.LastnameAdjusted+$user.ParticipantNumber)
-$NewImportOU = "OU=M-BFAP2427-ASS,OU=M-BFAP,OU=User_TN,OU=User_All,OU=2-BFWTN,DC=bfwtn,DC=intern"
+$NewImportOU = "OU=M-BFAP2503-ASS,OU=M-BFAP,OU=User_TN,OU=User_All,OU=2-BFWTN,DC=bfwtn,DC=intern"
 $ADServer = "2-sv-dc-tn-01.bfwtn.intern"
 $NewStartPassword = ("BFW" + $NewUserDateofBirth)
 $NewAccountPassword = (ConvertTo-SecureString $NewStartPassword -AsPlainText -Force)
 $NewUserPrincipalName = ($NewUserSAMAccountName + "@m365.bfwbb-lernen.de")
-$NewUserHomeGroup = "2-GG-M-BFAP2427-ASS"
-$NewPosition = "Teilnehmer - M-BFAP2427"
+$NewUserHomeGroup = "2-GG-M-BFAP2503-ASS"
+$NewPosition = "Teilnehmer - M-BFAP2503"
 $NewDepartment = "Bereich Reha-Assessment"
 $NewLocation = "Mühlenbeck"
 $NewCompany = "Berufsförderungswerk Berlin-Brandenburg e. V."
@@ -36,12 +41,12 @@ $NewCompany = "Berufsförderungswerk Berlin-Brandenburg e. V."
 
 # Benutzer im AD anlegen
 
-New-ADUser -Server $ADServer -SamAccountName $NewUserSAMAccountName -Name $NewUserName -Surname $NewUserLastName -GivenName $NewUserFirstName -UserPrincipalName $NewUserPrincipalName -DisplayName $NewUserDisplayName -AccountPassword $NewAccountPassword -Path $NewImportOU -City $NewLocation -Department $NewDepartment -Title $NewPosition -EmailAddress ($NewUserSAMAccountName+"@m365.bfwbb-lernen.de") -Company $NewCompany -ChangePasswordAtLogon $true -Verbose
+New-ADUser -Server $ADServer -SamAccountName $NewUserSAMAccountName -Name $NewUserName -Surname $NewUserLastName -GivenName $NewUserFirstName -UserPrincipalName $NewUserPrincipalName -DisplayName $NewUserDisplayName -AccountPassword $NewAccountPassword -Path $NewImportOU -City $NewLocation -Department $NewDepartment -Title $NewPosition -EmailAddress ($NewUserSAMAccountName+"@m365.bfwbb-lernen.de") -Company $NewCompany -ChangePasswordAtLogon $true -Verbose # -Credential $credential
 
 
 # Benutzer weiteren Gruppen zuordnen
 
-Add-ADPrincipalGroupMembership -Server $ADServer -Identity $NewUserSAMAccountName -MemberOf ($NewUserHomeGroup,"2-GG-PREVENT-LOGON-MA-PC")
+Add-ADPrincipalGroupMembership -Server $ADServer -Identity $NewUserSAMAccountName -MemberOf ($NewUserHomeGroup,"2-GG-PREVENT-LOGON-MA-PC") # -Credential $credential
 
 
 }
