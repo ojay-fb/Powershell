@@ -27,13 +27,13 @@ $NewUserDateofBirth = $user.DateofBirth
 $NewUserName = ($user.Lastname+","+" "+$user.Firstname)
 $NewUserDisplayName = ($user.Lastname+","+" "+$user.Firstname)
 $NewUserSAMAccountName = ($user.LastnameAdjusted+$user.ParticipantNumber)
-$NewImportOU = "OU=M-BFAP2503-ASS,OU=M-BFAP,OU=User_TN,OU=User_All,OU=2-BFWTN,DC=bfwtn,DC=intern"
+$NewImportOU = "OU=M-BFAP2518-ASS,OU=M-BFAP,OU=User_TN,OU=User_All,OU=2-BFWTN,DC=bfwtn,DC=intern"
 $ADServer = "2-sv-dc-tn-01.bfwtn.intern"
 $NewStartPassword = ("BFW" + $NewUserDateofBirth)
 $NewAccountPassword = (ConvertTo-SecureString $NewStartPassword -AsPlainText -Force)
 $NewUserPrincipalName = ($NewUserSAMAccountName + "@m365.bfwbb-lernen.de")
-$NewUserHomeGroup = "2-GG-M-BFAP2503-ASS"
-$NewPosition = "Teilnehmer - M-BFAP2503"
+$NewUserHomeGroup = "2-GG-M-BFAP2518-ASS"
+$NewPosition = "Teilnehmer - M-BFAP2518"
 $NewDepartment = "Bereich Reha-Assessment"
 $NewLocation = "Mühlenbeck"
 $NewCompany = "Berufsförderungswerk Berlin-Brandenburg e. V."
